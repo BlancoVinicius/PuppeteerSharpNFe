@@ -4,6 +4,7 @@ namespace view
 {
     public partial class Form1 : Form
     {
+        controller? controller = null;
         public Form1()
         {
             InitializeComponent();
@@ -11,10 +12,14 @@ namespace view
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            controller controller = new controller();
-            await controller.dowloadChromium();
-            await controller.findNfeSaveCsv();
-            MessageBox.Show("Programa finalizado");
+
+            if(this.controller == null) { 
+                this.controller = new controller();
+                await controller.dowloadChromium();
+                await controller.findNfeSaveCsv();
+                this.controller = null;
+                MessageBox.Show("Programa finalizado");
+            }
         }
     }
 }

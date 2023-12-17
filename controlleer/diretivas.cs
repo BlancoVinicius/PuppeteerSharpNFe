@@ -9,7 +9,7 @@ namespace diretivas {
     
     public class controller
     {
-
+        
         public static async Task dowloadChromium()
         {
             using var browserFetcher = new BrowserFetcher();
@@ -30,7 +30,6 @@ namespace diretivas {
                 }
     
                 csvHeaderWriter.streamWriter.Close();
-
             }
             catch(UnauthorizedAccessException e)
             {
