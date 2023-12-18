@@ -4,7 +4,9 @@ using ConvertToCsv;
 
 
 namespace diretivas { 
-
+    //passar o nome do arquivo de forma dinamica
+    //passar numero da nota de forma dinamica
+    //passar path para salvamento de forma dinamica
 
     
     public class controller
@@ -16,13 +18,13 @@ namespace diretivas {
             await browserFetcher.DownloadAsync(BrowserFetcher.DefaultChromiumRevision);
         }
     
-        public async Task findNfeSaveCsv()
+        public async Task findNfeSaveCsv(string pathFullName)
         {
             try
             {
                 PuppeteerConnectBrowser p = new PuppeteerConnectBrowser();
                 var listItens = await p.listData();
-                CsvHeaderWriter csvHeaderWriter = new CsvHeaderWriter("C:\\TESTE\\teste2.csv", ';');
+                CsvHeaderWriter csvHeaderWriter = new CsvHeaderWriter(pathFullName, ';');
 
                 foreach (var lista in listItens)
                 {
