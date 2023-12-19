@@ -1,0 +1,88 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using PuppeteerSharp;
+
+
+
+namespace danfe
+{
+    public class PuppeteerConnectBrowserDanfe
+    {
+        public async Task<List<List<string>>> listData()
+        {
+
+            //String[] argss = new String[1] { "--window-size=200,200" };
+            List<List<string>> listItens = new List<List<string>>();
+
+            string teste = "35230628628058000101550010000353281396924050";
+
+            //string nfe = "17231225043514000155558900059050071880657613";
+            var url = $"https://www.nfe.fazenda.gov.br/portal/consultaRecaptcha.aspx?tipoConsulta=resumo&tipoConteudo=7PhJ+gAVw2g=";
+
+
+            try
+            {
+                using (var browser = await Puppeteer.LaunchAsync(new LaunchOptions { Headless = false})) //, Args = argss 
+                {
+                    using (var page = await browser.NewPageAsync())
+                    {
+                        //await page.SetViewportAsync(new ViewPortOptions
+                        //{ Width = 100, Height = 100, DeviceScaleFactor = 1 });
+                        var jsCode = @"() => {
+                        document.querySelectorAll('a[class=""storylink""]'));
+                        return selectors.map( t=> {return { title: t.innerHTML, url: t.href}});
+                        }";
+
+                        await page.GoToAsync(url);
+                        var el = await page.QuerySelectorAsync("#ctl00_ContentPlaceHolder1_txtChaveAcessoResumo");
+                        
+                        await el.TypeAsync(teste);
+
+
+                        //var th = await page.QuerySelectorAllAsync("#itens th");
+                        //var trs = await page.QuerySelectorAllAsync("#itens tr");
+                        //int thCount = th.Count();
+
+                        //List<string> listHeader = new List<string>();
+
+                        //for (int i = 0; i < thCount; i++)
+                        //{
+                        //    var elTh = th.ElementAt(i);
+                        //    var innertextHeader = await elTh.GetPropertyAsync("innerText");
+                        //    listHeader.Add(await innertextHeader.JsonValueAsync<string>());
+                        //}
+
+                        //listItens.Add(listHeader);
+                        //foreach (var tr in trs)
+                        //{
+                        //    var td = await tr.QuerySelectorAllAsync("td");
+                        //    List<string>? listValue = new List<string>();
+                        //    foreach (var item in td)
+                        //    {
+                        //        var texto = await item.GetPropertyAsync("innerText");
+                        //        listValue.Add(await texto.JsonValueAsync<string>());
+                        //    }
+                        //    if (listValue.Count != 0)
+                        //    {
+                        //        listItens.Add(listValue);
+                        //    }
+                        //}
+                    }
+                }
+                return listItens;
+
+            }
+            catch (Exception e)
+            {
+                Console.Write(e.Message);
+                return listItens;
+            }
+
+        }
+
+    }
+    
+}

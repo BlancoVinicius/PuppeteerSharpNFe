@@ -7,7 +7,7 @@ using PuppeteerSharp;
 
 
 
-namespace IntegrationPuppeteer
+namespace danfe
 {
     public class PuppeteerConnectBrowser
     {
@@ -17,6 +17,12 @@ namespace IntegrationPuppeteer
             String[] argss = new String[1] { "--window-size=200,200" };
             List<List<string>> listItens = new List<List<string>>();
 
+            string teste = "35230628628058000101550010000353281396924050";
+
+            string nfe = "17231225043514000155558900059050071880657613";
+            var url = $"https://portaldatransparencia.gov.br/notas-fiscais/{nfe}?ordenarPor=dataEvento&direcao=asc";
+
+
             try
             {
                 using (var browser = await Puppeteer.LaunchAsync(new LaunchOptions { Headless = false, Args = argss }))
@@ -25,7 +31,7 @@ namespace IntegrationPuppeteer
                     {
                         await page.SetViewportAsync(new ViewPortOptions
                         { Width = 100, Height = 100, DeviceScaleFactor = 1 });
-                        await page.GoToAsync("https://portaldatransparencia.gov.br/notas-fiscais/17231225043514000155558900059050071880657613?ordenarPor=dataEvento&direcao=asc");
+                        await page.GoToAsync(url);
                         var el = await page.WaitForSelectorAsync("#btnProdutosServicos");
                         await el.ClickAsync();
 

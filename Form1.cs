@@ -1,4 +1,5 @@
 using diretivas;
+using System.Diagnostics;
 
 namespace view
 {
@@ -18,14 +19,31 @@ namespace view
                 return;
             }
 
+            if(txtNFe.Text == "")
+            {
+                MessageBox.Show("Digite uma chave de NFe para ser pesquisada!", "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
+            string fielName = "NFe " + txtNFe.Text + ".csv";
+            string pathSave = string.Join('\\', txtPathName.Text, fielName);
             if (this.controller == null)
             {
-                this.controller = new controller();
-                await controller.dowloadChromium();
-                await controller.findNfeSaveCsv("C:\\TESTE\\teste2.csv");
-                this.controller = null;
-                MessageBox.Show("Programa finalizado");
+                try
+                {
+                    this.Cursor = Cursors.WaitCursor;
+                    this.controller = new controller();
+                    await controller.dowloadChromium();
+                    await controller.findNfeSaveCsv(pathSave);
+                    this.controller = null;
+                    this.Cursor = Cursors.Default;
+                    MessageBox.Show("Programa finalizado");
+                }
+                finally 
+                { 
+                    this.Cursor = Cursors.Default;
+                    //Process.Start(new ProcessStartInfo(pathSave) { UseShellExecute = true});
+                }
             }
         }
 
@@ -41,6 +59,11 @@ namespace view
             {
                 this.txtPathName.Text = dialog.SelectedPath;
             }
+        }
+
+        private void txtNFe_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
     }
 }

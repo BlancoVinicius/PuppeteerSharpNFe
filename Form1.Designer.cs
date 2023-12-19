@@ -32,11 +32,13 @@
             txtPathName = new TextBox();
             label1 = new Label();
             btnSelectFolder = new Button();
+            label2 = new Label();
+            txtNFe = new TextBox();
             SuspendLayout();
             // 
             // button1
             // 
-            button1.Location = new Point(257, 214);
+            button1.Location = new Point(464, 350);
             button1.Name = "button1";
             button1.Size = new Size(75, 23);
             button1.TabIndex = 0;
@@ -75,12 +77,33 @@
             btnSelectFolder.UseVisualStyleBackColor = true;
             btnSelectFolder.Click += btnSelectFolder_Click;
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.Location = new Point(45, 197);
+            label2.Name = "label2";
+            label2.Size = new Size(195, 21);
+            label2.TabIndex = 4;
+            label2.Text = "Chave de acesso da NFe:";
+            // 
+            // txtNFe
+            // 
+            txtNFe.BorderStyle = BorderStyle.FixedSingle;
+            txtNFe.Location = new Point(44, 230);
+            txtNFe.Name = "txtNFe";
+            txtNFe.Size = new Size(577, 23);
+            txtNFe.TabIndex = 5;
+            txtNFe.KeyPress += txtNFe_KeyPress;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(800, 450);
+            Controls.Add(txtNFe);
+            Controls.Add(label2);
             Controls.Add(btnSelectFolder);
             Controls.Add(label1);
             Controls.Add(txtPathName);
@@ -97,5 +120,7 @@
         private TextBox txtPathName;
         private Label label1;
         private Button btnSelectFolder;
+        private Label label2;
+        private TextBox txtNFe;
     }
 }
